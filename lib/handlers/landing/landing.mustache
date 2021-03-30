@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="./static/script.js"></script>
+    <!-- Compiled and minified CSS -->
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+    />
+
+    <!-- Compiled and minified JavaScript -->
+
+    <title>Test Web Server in html</title>
+  </head>
+  <body>
+    <nav class="indigo darken-1">
+      <div class="nav-wrapper">
+        <a href="#!" class="brand-logo" style="margin-left: 2rem"
+          >Sample Web Server</a
+        >
+        <a href="#" data-target="mobile-demo" class="sidenav-trigger"
+          ><i class="material-icons">menu</i></a
+        >
+        <ul class="right hide-on-med-and-down">
+          <li><a href="sass.html">Sass</a></li>
+          <li><a href="badges.html">Components</a></li>
+          <li><a href="collapsible.html">Javascript</a></li>
+          <li><a href="mobile.html">Mobile</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="container">
+      <h5>
+        This is a simple webserver made using Dart. {{ title }}
+        
+      </h5>
+
+      <h6>Not the best looking site but it works</h6>
+      <br />
+      <button class="btn waves-effect waves-light" id="change">
+        Click Here
+      </button>
+
+      <p id="title">Click on the button to change this text</p>
+      <br />
+      <a href="/authenticated"class="btn waves-effect waves-light">
+        Unauthenticated Request
+      </a>
+      <br />
+      <br />
+      <form action="/api/login" method="POST" enctype="multipart/form-data">
+        <label for="fname">First name:</label><br />
+        <input type="text" id="fname" name="fname" value="John" /><br />
+
+        <button
+          class="btn waves-effect waves-light"
+          type="submit"
+          name="action"
+          id="login"
+        >
+          Authenticated Requested
+          <i class="material-icons right">send</i>
+        </button>
+      </form>
+      <br /><br />
+
+      <a class="btn waves-effect waves-light" href="/api/messages/">
+        Api Route
+      </a>
+    </div>
+  </body>
+
+ 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+</html>
