@@ -34,6 +34,7 @@ class Api {
       };
       return Response.found('/authenticated', headers: headers);
     } catch (e) {
+      print(e);
       return Response.notFound('Invalid request');
     }
   }
