@@ -6,11 +6,11 @@ import 'package:shelf_static/shelf_static.dart';
 
 //package:shelf_static provides handy functions to create a static file handler form the filesystem directory
 var staticFileHandler = createStaticHandler(
-  '/home/oopsies/server-example/lib/static',
+  '/home/f/dart-server-example/lib/static',
 );
 //Currently not using this. instread using the package https://pub.dev/shelf_static
 Future<Response> staticFileHandlerDepricated() async {
-  final file = File('/home/oopsies/server-example/static');
+  final file = File('/home/f/dart-server-example/lib/static');
   final bytes = file.readAsBytesSync();
   final lastModified = file.lastModifiedSync();
   final contentType = mime.lookupMimeType(file.path) ?? 'octet/binary';
