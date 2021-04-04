@@ -21,21 +21,22 @@ class Api {
   }
 
   Future<Response> _login(Request request) async {
-    try {
-      if (request.headers.containsKey(HttpHeaders.cookieHeader)) {
-        if (request.headers[HttpHeaders.cookieHeader].contains('name=')) {
-          return Response.found('/authenticated');
-        }
+    if (request.headers.containsKey(HttpHeaders.cookieHeader)) {
+      if (request.headers[HttpHeaders.cookieHeader].contains('name=')) {
+        return Response.found('/authenticated');
       }
-      var body = await handlePostRequest(request);
+    }
+
+    try {
+      final body = await handlePostRequest(request);
       var headers = {
         HttpHeaders.setCookieHeader:
             'name=${body['fname']};path=/;SameSite=Lax;Expires=${DateTime.now().add(Duration(days: 1))}'
       };
       return Response.found('/authenticated', headers: headers);
     } catch (e) {
-      print(e);
-      return Response.notFound('Invalid request');
+      return invalidContentType(
+          'Invalid request. Data sent should be of the type "multipart/form-data; boundary=something"');
     }
   }
 

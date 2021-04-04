@@ -31,3 +31,21 @@ Response jsonResponse(
     },
   );
 }
+
+Response invalidContentType(
+  String body, {
+  int status = 415,
+  Map<String, String> headers,
+}) {
+  headers ??= <String, String>{};
+  if (headers['content-type'] == null) {
+    headers['content-type'] = 'text/plain';
+  }
+  return Response(
+    status,
+    body: body,
+    headers: {
+      ...headers,
+    },
+  );
+}
