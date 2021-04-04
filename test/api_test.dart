@@ -1,4 +1,6 @@
+import 'dart:convert';
 import 'dart:io';
+import 'dart:math';
 import 'package:server_example/handlers/static_files.dart';
 import 'package:server_example/middleware/authentication.dart';
 import 'package:server_example/routes/route_service.dart';
@@ -32,7 +34,7 @@ void main() {
     server = null;
     url = null;
   });
-  test('testing login route cooking setting /api/login ', () async {
+  test('testing login route cookie setting /api/login ', () async {
     final request =
         http.MultipartRequest('POST', url.replace(path: '/api/login'))
           ..fields['fname'] = 'ramyak';
@@ -42,6 +44,14 @@ void main() {
     expect(
         response.headers[HttpHeaders.setCookieHeader].contains('name=ramyak'),
         true);
+  });
+  test('testing login route content-type /api/login ', () async {
+    final response = await httpClient
+        .post(url.replace(path: '/api/login'), body: {'fname': 'ramyak'});
+
+    expect(response.statusCode, 415);
+    expect(response.body,
+        'Invalid request. Data sent should be of the type "multipart/form-data; boundary=something"');
   });
 
   test('test greetings without authentication /api/messages', () async {
@@ -56,5 +66,13 @@ void main() {
     expect(response.statusCode, 200);
     expect(response.body,
         '{"message":"Greetings ramyak","note":"The name of the person was read using cookies"}');
+  });
+
+  test('testing response type on when /api/messages ', () async {
+    final response = await httpClient.get(url.replace(path: '/api/messages'),
+        headers: {HttpHeaders.cookieHeader: 'name=ramyak'});
+    expect(response.statusCode, 200);
+    expect(response.headers[HttpHeaders.contentTypeHeader],
+        'application/json; charset="utf-8"');
   });
 }
