@@ -10,9 +10,8 @@ Future<Response> indexLandingHandler(Request request) async {
 Future<String> renderLandingPage() async {
   final values = {'title': 'This text is  server side rendered'};
 
-  var source = await File(
-          '/home/f/dart-server-example/lib/handlers/landing/landing.mustache')
-      .readAsString();
+  var source =
+      await File('/app/lib/handlers/landing/landing.mustache').readAsString();
   final template = Template(source, name: 'template-landing.html');
   var output = template.renderString(values);
   return output;
