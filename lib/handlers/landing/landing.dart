@@ -4,11 +4,7 @@ import 'package:shelf/shelf.dart';
 import 'dart:io';
 
 Future<Response> indexLandingHandler(Request request) async {
-  Future<String> renderLanding() async {
-    return renderLandingPage();
-  }
-
-  return htmlResponse(await renderLanding());
+  return htmlResponse(await renderLandingPage());
 }
 
 Future<String> renderLandingPage() async {
