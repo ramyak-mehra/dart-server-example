@@ -5,6 +5,9 @@ import 'package:shelf/shelf.dart';
 import 'package:shelf_router/shelf_router.dart';
 
 class Api {
+  ///Returns a json response {Greetings : <user_name>}.
+  ///the user_name comes from the custom.user set by the authentication handler.
+  ///If no name is present it shows null. A note is added with both the cases.
   Future<Response> _messages(Request request) async {
     if (request.context.containsKey('custom.user')) {
       var user = request.context['custom.user'] as String;
@@ -20,6 +23,8 @@ class Api {
     }
   }
 
+  ///This method (pseudo) logs in the user. It reads the body from the POST request
+  ///and sets the cookie with name=<user_name> and then redirects to /authenticated
   Future<Response> _login(Request request) async {
     if (request.headers.containsKey(HttpHeaders.cookieHeader)) {
       if (request.headers[HttpHeaders.cookieHeader].contains('name=')) {
@@ -46,6 +51,7 @@ class Api {
     router.get('/messages/', _messages);
     router.post('/login', _login);
     router.post('/login/', _login);
+    //for any other request not matching the path, a notfound response is sent.
     router.all('/<ignored|.*>', (Request request) => Response.notFound('null'));
     return router;
   }

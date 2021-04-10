@@ -6,6 +6,7 @@ const _jsonResponseHeaders = <String, String>{
   'x-content-type-options': 'nosniff',
 };
 
+///It generates a html response with content type as 'text/html; charset="utf-8"'
 Response htmlResponse(
   String content, {
   int status = 200,
@@ -16,6 +17,7 @@ Response htmlResponse(
   return Response(status, body: content, headers: headers);
 }
 
+///It generates a json response with content type as 'application/json; charset="utf-8"'
 Response jsonResponse(
   Map map, {
   int status = 200,
@@ -32,6 +34,7 @@ Response jsonResponse(
   );
 }
 
+///It generates invalid content type response. It's throughs a 415 error.
 Response invalidContentType(
   String body, {
   int status = 415,

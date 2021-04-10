@@ -4,6 +4,7 @@ import 'package:server_example/routes/api.dart';
 import 'package:shelf/shelf.dart';
 import 'package:shelf_router/shelf_router.dart';
 
+///Default router service. All requests first comes here.
 class RouteService {
   Handler get handler {
     final router = Router();
@@ -19,6 +20,7 @@ class RouteService {
       }
       return Response.ok('content');
     });
+
     router.mount('/api/', Api().router);
     router.all('/<ignored|.*>', (Request request) {
       return Response.notFound('Page not found');
