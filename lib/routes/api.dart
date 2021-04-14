@@ -1,4 +1,5 @@
 import 'dart:io' show HttpHeaders;
+import 'package:intl/intl.dart';
 import 'package:server_example/response_utility.dart';
 import 'package:server_example/utility.dart';
 import 'package:shelf/shelf.dart';
@@ -26,17 +27,15 @@ class Api {
   ///This method (pseudo) logs in the user. It reads the body from the POST request
   ///and sets the cookie with name=<user_name> and then redirects to /authenticated
   Future<Response> _login(Request request) async {
-    if (request.headers.containsKey(HttpHeaders.cookieHeader)) {
-      if (request.headers[HttpHeaders.cookieHeader].contains('name=')) {
-        return Response.found('/authenticated');
-      }
-    }
-
     try {
       final body = await handlePostRequest(request);
+      var dateFormat = DateFormat('E, d MMM yyyy HH:mm:ss');
+      var expirey =
+          dateFormat.format(DateTime.now().add(Duration(days: 1)).toUtc()) +
+              ' GMT';
       var headers = {
         HttpHeaders.setCookieHeader:
-            'name=${body['fname']};path=/;SameSite=Lax;Expires=${DateTime.now().add(Duration(days: 1))}'
+            'name=${body['fname']};path=/;SameSite=Lax;expires=$expirey'
       };
       return Response.found('/authenticated', headers: headers);
     } catch (e) {
