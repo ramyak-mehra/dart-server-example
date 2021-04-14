@@ -48,7 +48,6 @@ void main() {
     );
     expect(response.statusCode, 200);
     final currentDirectory = Directory.current;
-    print(currentDirectory.path);
     final clickedResponse = await File(
             '${currentDirectory.path}/test/html_files/landing_clicked.html')
         .readAsString();
